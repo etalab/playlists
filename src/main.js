@@ -1,5 +1,4 @@
-// This is the main.js file. Import global CSS and scripts here.
-// The Client API can be used here. Learn more: gridsome.org/docs/client-api
+import Vuex from 'vuex'
 
 import BootstrapVue from 'bootstrap-vue'
 
@@ -9,20 +8,26 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import store from './store'
 
 import DefaultLayout from '~/layouts/Default.vue'
 
-
-export default function (Vue, { router, head, isClient }) {
+export default function (Vue, { router, head, isClient, appOptions }) {
   // Set default layout as a global component
 
   Vue.use(BootstrapVue)
   Vue.use(VueAxios, axios)
+  Vue.use(Vuex)
 
-  head.script.push({
-      "data-udata": "https://www.data.gouv.fr/",
-      "src": "https://static.data.gouv.fr/static/oembed.js"
+  appOptions.store = store
+
+  appOptions.store.subscribe((mutation, state) => {
+    localStorage.setItem('store', JSON.stringify(state))
   })
+
+  appOptions.beforeCreate = function(){
+      this.$store.commit('initialiseStore')
+  }
 
   Vue.component('Layout', DefaultLayout)
 }
