@@ -1,0 +1,11 @@
+{
+  "routes": [
+      { "src": "/playlist/(?<id>[^/]+)/edit", "dest": "/playlist/_id/edit.html" },
+      { "src": "/playlist/(?<id>[^/]+)", "dest": "/playlist/_id.html" }
+  ],
+  "build": {
+      "env": {
+        "GRIDSOME_OAUTH_CALLBACK": "https://playlists.tkd.now.sh/login"
+      }
+  }
+}
