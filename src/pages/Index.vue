@@ -1,15 +1,13 @@
 <template>
   <Layout>
-    <h1>playlists.data.gouv.fr</h1>
+    <b-container class="pt-3">
+        <h2>
+            Mes playlists
+        </h2>
 
-    <a href="/playlist/new">Ajouter une playlist</a>
+        <a href="/playlist/new">Ajouter une playlist</a>
 
-    <h2>Mes playlists</h2>
-
-    <h2>Playlists mises en avant</h2>
-
-    <h2>Playlists populaires</h2>
-
+    </b-container>
   </Layout>
 </template>
 

@@ -5,7 +5,9 @@
             <b-navbar-brand href="/">playlists</b-navbar-brand>
 
             <b-navbar-nav class="ml-auto">
-                <a href="/login" v-if="!user.loggedIn">Sign in</a>
+                <b-navbar-nav v-if="!user.loggedIn">
+                   <b-nav-item href="/login">Se connecter</b-nav-item>
+               </b-navbar-nav>
 
                 <b-nav-item-dropdown right v-if="user.loggedIn">
                   <!-- Using 'button-content' slot -->
@@ -13,7 +15,7 @@
                       {{ user.data.first_name }}
                   </template>
                   <b-dropdown-item :href="user.data.page">Profile</b-dropdown-item>
-                  <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
+                  <b-dropdown-item @click="logout">Se déconnecter</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-navbar>

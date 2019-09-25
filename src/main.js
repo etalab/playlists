@@ -21,12 +21,14 @@ export default function (Vue, { router, head, isClient, appOptions }) {
 
   appOptions.store = store
 
-  appOptions.store.subscribe((mutation, state) => {
-    localStorage.setItem('store', JSON.stringify(state))
-  })
+  if (isClient){
+      appOptions.store.subscribe((mutation, state) => {
+        localStorage.setItem('store', JSON.stringify(state))
+      })
 
-  appOptions.beforeCreate = function(){
-      this.$store.commit('initialiseStore')
+      appOptions.beforeCreate = function(){
+          this.$store.commit('initialiseStore')
+      }
   }
 
   Vue.component('Layout', DefaultLayout)
