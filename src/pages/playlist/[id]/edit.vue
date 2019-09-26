@@ -46,6 +46,22 @@
 
             <b-row>
                 <b-col
+                    v-for="url in datasets_search_unique" :key="url"
+                    v-show="!(datasets.includes(url))"
+                    class="mb-4"
+                    cols="12" md="4"
+                >
+                    <DatasetCard :url="url" />
+
+                    <div class="text-center text-muted small">
+                        <a @click="add(url)">ajouter</a>
+                    </div>
+                </b-col>
+            </b-row>
+
+
+            <b-row>
+                <b-col
                     v-for="url in datasets_search" :key="url"
                     v-show="!(datasets.includes(url))"
                     class="mb-4"
@@ -77,11 +93,13 @@ export default {
             ],
             query: '',
             search_loading: false,
+            datasets_search_unique: [],
             datasets_search: []
         }
     },
     watch: {
         query: function(val){
+            this.datasets_search_unique = []
             this.datasets_search = []
             this.search_loading = true
 
@@ -91,14 +109,14 @@ export default {
 
             this.$http.get(dataset_url)
                 .then( response => {
-                    this.datasets_search = [ response.data.page ]
+                    this.datasets_search_unique = [ response.data.page ]
                 })
                 .finally( ()=>
                     this.$http.get(search_url, { q: val })
                         .then( response => {
+                            this.datasets_search= []
                             const pages = response.data.data.map( o => o['page'])
                             this.datasets_search = this.datasets_search.concat(pages)
-
                         })
                         .finally( () => this.search_loading = false )
                 )
