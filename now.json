@@ -1,7 +1,8 @@
 {
   "routes": [
-      { "src": "/playlist/(?<id>[^/]+)/edit", "dest": "/playlist/_id/edit.html" },
-      { "src": "/playlist/(?<id>[^/]+)", "dest": "/playlist/_id.html" }
+      { "src": "/playlist/(?<dataset>[^/]+)/(?<id>[^/]+)/edit", "dest": "/playlist/_dataset/_id/edit.html" },
+      { "src": "/playlist/(?<dataset>[^/]+)/new", "dest": "/playlist/_dataset/new.html" },
+      { "src": "/playlist/(?<dataset>[^/]+)/(?<id>[^/]+)", "dest": "/playlist/_dataset/_id.html" }
   ],
   "build": {
       "env": {

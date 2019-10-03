@@ -1,20 +1,20 @@
 <template>
   <Layout>
     <b-container class="pt-3">
-        <h2>
-            Mes playlists
-        </h2>
-
-        <a href="/playlist/new">Ajouter une playlist</a>
-
+        <GroupsList />
     </b-container>
   </Layout>
 </template>
 
 <script>
+import GroupsList from '~/components/GroupsList.vue'
+
 export default {
+  components: {
+      GroupsList
+  },
   metaInfo: {
-    title: 'Hello, world!'
+    title: 'Home'
   }
 }
 </script>

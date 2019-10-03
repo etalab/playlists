@@ -31,6 +31,9 @@ export default new Vuex.Store({
             Object.assign(state, JSON.parse(localStorage.getItem('store')))
           )
         }
+      },
+      setPlaylistsGroups(state, data){
+          state.groups = data
       }
     },
     actions: {
@@ -45,6 +48,12 @@ export default new Vuex.Store({
         commit('unsetLoggedIn')
         commit('setToken', '')
         commit('setUserData', {})
+      },
+      groups({ commit }, data){
+        commit('setPlaylistsGroups', data)
+      },
+      playlistSave({ commit }, dataset, id, content){
+
       }
     }
   })

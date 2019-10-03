@@ -1,0 +1,40 @@
+<template>
+    <div>
+        <b-card-group columns>
+            <b-card
+                v-for="playlist in playlists"
+                :key="playlist.id"
+                :title="playlist.title"
+                :sub-title="playlist.extras.datasets+' jeux de données'"
+                style="max-width: 20rem;"
+                class="mb-2"
+            >
+                <b-card-text>
+                    {{ playlist.description }}
+                </b-card-text>
+                <b-link :href="playlistUrl(playlist)" class="card-link">Voir la playlist</b-link>
+            </b-card>
+        </b-card-group>
+    </div>
+</template>
+
+<script>
+import Api from '~/services/Api'
+
+const $api = new Api
+
+export default {
+    props:{
+        group: String,
+        playlists: Array
+    },
+    data(){
+        return {}
+    },
+    methods: {
+        playlistUrl: function(playlist){
+            return `/playlist/${this.group}/${playlist.id}`
+        }
+    }
+}
+</script>
