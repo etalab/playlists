@@ -29,22 +29,21 @@ export default {
             groups: []
         }
     },
-    computed: {
-        // groups: function(){
-        //     return this.$store.state.groups
-        // }
-    },
+    computed: {},
     watched:{
         groups: function(){
             console.log("changed", this.groups)
         }
     },
     mounted: function(){
-        this.groups = this.$store.state.folders.cache
-
-        this.$store.dispatch('folders/fetchMe').then(()=>{
+        this.$store.watch(
+          (state, getters) => getters["folders/cache"],
+          (newValue, oldValue) => {
             this.groups = this.$store.state.folders.cache
-        })
+          }
+        )
+
+        this.$store.dispatch('folders/fetchMe')
     }
 }
 </script>

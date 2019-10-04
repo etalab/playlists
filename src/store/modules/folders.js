@@ -9,6 +9,9 @@ const module = {
             cache: []
         }
     },
+    getters: {
+      cache: state => state.cache
+    },
     mutations: {
         setFolders(state, data){
             state.cache = data
