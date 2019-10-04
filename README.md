@@ -2,6 +2,14 @@
 
  🎧 😌 📊 Créer et partager simplement des listes de jeux de données
 
+## prochaines étapes
+
+1. partager une playlist sur twitter
+1. indicateur d'activité/transition entre les pages
+1. gestion directe des dossiers (privé/public et édition) 
+1. autres objets que les jeux de données
+
+
 ## dev
 
 ### 1. Install Gridsome CLI tool if you don't have
