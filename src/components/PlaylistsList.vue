@@ -5,7 +5,7 @@
                 v-for="playlist in playlists"
                 :key="playlist.id"
                 :title="playlist.title"
-                :sub-title="playlist.extras.datasets+' jeux de données'"
+                :sub-title="playlistCount(playlist.extras.datasets)+' jeux de données'"
                 class="mb-2"
             >
                 <b-card-text>
@@ -33,6 +33,9 @@ export default {
     methods: {
         playlistUrl: function(playlist){
             return `/playlist/${this.group}/${playlist.id}`
+        },
+        playlistCount: function(val){
+            return val || 0
         }
     }
 }
