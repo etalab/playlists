@@ -2,6 +2,10 @@
 
  🎧 😌 📊 Créer et partager simplement des listes de jeux de données
 
+## pitch
+
+Une petite application pas vraiment en une seule page qui permet de créer des playlists de jeux de données et de les stocker directement sur data.gouv.fr sous forme de ressource. Le but est de pouvoir les partager rapidement en ayant un permalien fournissant une représentation de la playlist mais également d'avoir directement la playlist sous un format simple qui permettra une réutilisation simple.
+
 ## prochaines étapes
 
 1. partager une playlist sur twitter
