@@ -5,19 +5,31 @@
             small
             v-if="!oembed.type"
         ></b-spinner>
-        <div class="oembed-content" v-if="oembed.type" v-html="oembed.html"></div>
+        <div class="oembed-content" v-if="oembed.type" v-html="html"></div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['url'],
+    props: ['url', 'inactive'],
     data(){
         return {
             oembed: Object,
             error: undefined,
             oembedApi: 'https://www.data.gouv.fr/api/1/oembed'
         }
+    },
+    computed: {
+      html: function(){
+        let el = document.createElement('div')
+        el.innerHTML = this.oembed.html
+
+        if (this.inactive){
+          el.firstChild.children[2].removeAttribute("href")
+        }
+
+        return el.innerHTML
+      }
     },
     async created() {
         console.log(this.url)

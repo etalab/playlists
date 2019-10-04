@@ -27,16 +27,16 @@
                     class="mb-4"
                     cols="12" md="4"
                 >
-                    <DatasetCard :url="dataset" />
+                    <DatasetCard :url="dataset" :inactive="editable" @click.native="remove(dataset)" />
 
                     <div class="text-center text-muted small" v-if="editable">
-                        <a @click="remove(dataset)">retirer</a>
+                        <a :href="dataset">voir</a>
                     </div>
                 </b-col>
             </b-row>
         </b-container>
 
-        <b-container class="mt-4" v-if="isMine">
+        <b-container class="mt-4" v-if="isMine && editable">
             <h3>Ajouter un jeu de données</h3>
 
             <b-form-group
@@ -58,10 +58,10 @@
                     class="mb-4"
                     cols="12" md="4"
                 >
-                    <DatasetCard :url="url" />
+                    <DatasetCard :url="url" :inactive="true" @click.native="add(url)" />
 
                     <div class="text-center text-muted small">
-                        <a @click="add(url)">ajouter</a>
+                        <a :href="url">voir</a>
                     </div>
                 </b-col>
             </b-row>
