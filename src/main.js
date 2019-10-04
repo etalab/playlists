@@ -13,23 +13,20 @@ import store from './store'
 import DefaultLayout from '~/layouts/Default.vue'
 
 export default function (Vue, { router, head, isClient, appOptions }) {
-  // Set default layout as a global component
+  Vue.component('Layout', DefaultLayout)
+
 
   Vue.use(BootstrapVue)
   Vue.use(VueAxios, axios)
   Vue.use(Vuex)
 
-  appOptions.store = store
-
-  if (isClient){
-      appOptions.store.subscribe((mutation, state) => {
-        localStorage.setItem('store', JSON.stringify(state))
-      })
-
-      appOptions.beforeCreate = function(){
-          this.$store.commit('initialiseStore')
-      }
-  }
-
-  Vue.component('Layout', DefaultLayout)
+    if (isClient){
+        appOptions.store = store
+        appOptions.store.subscribe((mutation, state) => {
+            localStorage.setItem('store', JSON.stringify(state))
+        })
+        appOptions.beforeCreate = function(){
+            this.$store.commit('initialiseStore')
+        }
+    }
 }

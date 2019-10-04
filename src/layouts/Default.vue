@@ -5,11 +5,11 @@
             <b-navbar-brand href="/">playlists</b-navbar-brand>
 
             <b-navbar-nav class="ml-auto">
-                <b-navbar-nav v-if="!user.loggedIn">
+                <b-navbar-nav v-if="user && !user.loggedIn">
                    <b-nav-item href="/login">Se connecter</b-nav-item>
                </b-navbar-nav>
 
-                <b-nav-item-dropdown right v-if="user.loggedIn">
+                <b-nav-item-dropdown right v-if="user && user.loggedIn">
                   <!-- Using 'button-content' slot -->
                   <template v-slot:button-content>
                       {{ user.data.first_name }}
@@ -32,8 +32,12 @@
 export default {
     data(){
         return {
-            user: this.$store.state.user
+            user: {},
         }
+    },
+    computed: {},
+    mounted(){
+        this.user = this.$store.state.user
     },
     methods: {
         logout(){

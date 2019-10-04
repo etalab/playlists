@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="group in groups">
+        <div v-for="group in groups" :key="group.id">
             <h3 class="text-muted text-sm">
                 {{ group.title }}
             </h3>
@@ -29,32 +29,22 @@ export default {
             groups: []
         }
     },
+    computed: {
+        // groups: function(){
+        //     return this.$store.state.groups
+        // }
+    },
+    watched:{
+        groups: function(){
+            console.log("changed", this.groups)
+        }
+    },
     mounted: function(){
-        let playlists_stores = []
+        this.groups = this.$store.state.folders.cache
 
-        $api.get('me/datasets').then((res)=>{
-            for (let k in res.data) {
-                const dataset = res.data[k]
-                if ("playlist" in dataset.extras){
-                    playlists_stores.push(dataset)
-                }
-            }
-
-            if (playlists_stores.length ==0){
-                const info = {
-                    title: "Mes playlists",
-                    description: "mes belles playlists",
-                    private: true,
-                    extras: {
-                        playlist: true
-                    }
-                }
-
-                $api.post('datasets', info)
-            }
+        this.$store.dispatch('folders/fetchMe').then(()=>{
+            this.groups = this.$store.state.folders.cache
         })
-        this.groups = playlists_stores
-        this.$store.dispatch("groups", playlists_stores)
     }
 }
 </script>

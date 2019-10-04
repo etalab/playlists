@@ -9,7 +9,11 @@
             </template>
 
             <template v-slot:lead>
-                <div class="text-secondary" :contenteditable="editable" @input="onLead">
+                <div
+                    class="text-secondary"
+                    :contenteditable="editable"
+                    @input="onLead"
+                >
                     {{ description }}
                 </div>
             </template>
@@ -32,7 +36,7 @@
             </b-row>
         </b-container>
 
-        <b-container class="mt-4" v-if="editable">
+        <b-container class="mt-4" v-if="isMine">
             <h3>Ajouter un jeu de données</h3>
 
             <b-form-group
@@ -100,6 +104,7 @@ export default {
             id: null,
             title: null,
             user: null,
+            currentUser: null,
             description: null,
             datasets: [],
             query: '',
@@ -109,8 +114,11 @@ export default {
     },
     computed: {
         isMine: function(){
-            return this.user == this.$store.state.user.data.id
+            return this.user == this.currentUser
         },
+        // currentUser(){
+        //     return this.$store.state.user.data.id
+        // },
         url: function(){
             return `/playlist/${this.dataset}/${this.id}`
         }
@@ -199,6 +207,8 @@ export default {
         const { dataset, id } = this.$route.params
         this.dataset = dataset
         this.id = id
+
+        this.currentUser = this.$store.state.user.data.id
 
         $api.get(`datasets/${this.dataset}`).then((res)=>{
             this.user = res.data.owner.id

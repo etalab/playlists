@@ -1,13 +1,17 @@
 <template>
   <div>
     <h1>Login page</h1>
-    <a href="/oauth">back</a>
+    <a href="/">back</a>
   </div>
 </template>
 
 <script>
 const BASE_URL = "https://www.data.gouv.fr"
 const axios = require('axios')
+
+import Api from '~/services/Api'
+
+const $api = new Api()
 
 export default {
   data () {
@@ -16,6 +20,7 @@ export default {
   mounted () {
     if (!this.token) {
       console.debug('No oauth token found ¯\\_(ツ)_/¯')
+
       if (!this.$store.state.user.loggedIn) {
         window.location = this.tokenURL
       } else {
@@ -25,14 +30,11 @@ export default {
     } else {
       this.$store.dispatch('login', this.token)
       .then(() => {
-        const headers = {
-            'Authorization': `Bearer ${this.token}`
-        }
-
-        this.$http.get('https://www.data.gouv.fr/api/1/me/', { headers: headers })
-        .then((response)=>{
-            this.$store.dispatch('fillUserData', response.data)
-            this.$router.push('/')
+          $api.get('me')
+          .then((response)=>{
+            this.$store.dispatch('fillUserData', response.data).then(()=>{
+                this.$router.push('/')
+            })
         })
       })
     }
@@ -43,10 +45,6 @@ export default {
         const redirectURI = encodeURIComponent(process.env.GRIDSOME_OAUTH_CALLBACK)
 
         return `${BASE_URL}/fr/oauth/authorize?redirect_uri=${redirectURI}&response_type=token&client_id=${clientId}&scope=default&grant_type=implicit`
-    },
-    async callback_uri(){
-        const uri = await axios.get(process.env.GRIDSOME_OAUTH_CALLBACK)
-        return encodeURIComponent(uri)
     },
     token () {
       return this.params['access_token']

@@ -6,7 +6,6 @@
                 :key="playlist.id"
                 :title="playlist.title"
                 :sub-title="playlist.extras.datasets+' jeux de données'"
-                style="max-width: 20rem;"
                 class="mb-2"
             >
                 <b-card-text>
