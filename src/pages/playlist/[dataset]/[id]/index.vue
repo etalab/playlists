@@ -227,9 +227,6 @@ export default {
             this.description = res.data.description
             this.resource = res.data
 
-            console.log(res.data)
-            console.log(this.resource)
-
             this.$http.get(res.data.url).then((res)=>{
                 if(res.data) this.datasets = res.data.split("\n")
             })
