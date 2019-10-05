@@ -32,7 +32,6 @@ export default {
       }
     },
     async created() {
-        console.log(this.url)
         this.getOembed(this.url)
     },
     methods: {
@@ -43,7 +42,6 @@ export default {
         try {
           const oembedUrl = `${this.oembedApi}?url=${encodeURIComponent(url)}`
           const response = await fetch(oembedUrl)
-          console.log(response)
 
           if (response.ok) {
             this.oembed = await response.json()

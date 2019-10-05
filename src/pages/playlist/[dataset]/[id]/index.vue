@@ -67,17 +67,25 @@
             </b-row>
         </b-container>
 
-        <b-container v-if="isMine">
-            <b-link class="text-danger" v-b-modal.confirm-delete>supprimer</b-link>
-            <b-button class="ml-2" variant="primary" :href="url+'/edit'">éditer</b-button>
+        <b-container class="mt-5">
+            <b-row>
+              <b-col class="mr-auto" cols="auto">
+                <b-button :href="resource.url">télécharger la playlist</b-button>
+                <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
+              </b-col>
+              <b-col cols="auto" v-if="isMine">
+                <b-link v-if="!editable" :href="url+'/edit'">éditer</b-link>
+                <b-link v-else class="text-danger" v-b-modal.confirm-delete>supprimer</b-link>
 
-            <b-modal
-                id="confirm-delete"
-                title="Confirmer la suppression"
-                @ok="deletePlaylist"
-            >
-                <p>Êtes-vous certain.e de vouloir supprimer cette playlist ?</p>
-            </b-modal>
+                <b-modal
+                    id="confirm-delete"
+                    title="Confirmer la suppression"
+                    @ok="deletePlaylist"
+                >
+                    <p>Êtes-vous certain.e de vouloir supprimer cette playlist ?</p>
+                </b-modal>
+              </b-col>
+            </b-row>
         </b-container>
     </Layout>
 </template>
@@ -101,6 +109,7 @@ export default {
     data() {
         return {
             dataset: null,
+            resource: {},
             id: null,
             title: null,
             user: null,
@@ -197,7 +206,6 @@ export default {
                     }
                 }
             ).then(res=>{
-                this.resource = res.data.id
                 this.updateMeta("title", this.title)
                 this.updateMeta("extras", { "datasets": this.datasets.length })
             })
@@ -217,6 +225,10 @@ export default {
         $api.get(`datasets/${this.dataset}/resources/${this.id}`).then((res)=>{
             this.title = res.data.title
             this.description = res.data.description
+            this.resource = res.data
+
+            console.log(res.data)
+            console.log(this.resource)
 
             this.$http.get(res.data.url).then((res)=>{
                 if(res.data) this.datasets = res.data.split("\n")
