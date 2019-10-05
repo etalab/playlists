@@ -2,7 +2,7 @@
   <div>
     <header>
         <b-navbar toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand href="/">playlists</b-navbar-brand>
+            <b-navbar-brand to="/">playlists</b-navbar-brand>
 
             <b-navbar-nav class="ml-auto">
                 <b-navbar-nav v-if="user && !user.loggedIn">

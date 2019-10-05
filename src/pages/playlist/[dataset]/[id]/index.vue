@@ -74,7 +74,7 @@
                 <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
               </b-col>
               <b-col cols="auto" v-if="isMine">
-                <b-link v-if="!editable" :href="url+'/edit'">éditer</b-link>
+                <b-link v-if="!editable" :to="url+'/edit'">éditer</b-link>
                 <b-link v-else class="text-danger" v-b-modal.confirm-delete>supprimer</b-link>
 
                 <b-modal
