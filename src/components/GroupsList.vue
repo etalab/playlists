@@ -1,13 +1,25 @@
 <template>
     <div>
         <div v-for="group in groups" :key="group.id">
-            <h3 class="text-muted text-sm">
-                {{ group.title }}
-            </h3>
+            <div class="mb-4">
+
+              <div class="d-flex">
+                  <h3 class="text-muted text-sm flex-grow-1">
+                    {{ group.title }}
+                  </h3>
+                  <b-button class="float-right" :href="'/playlist/'+group.id+'/new'">ajouter une playlist</b-button>
+              </div>
+
+              <div class="lead">
+                {{ group.description }}
+              </div>
+
+              <small><a :href="group.page">voir le dossier sur data.gouv.fr</a></small>
+
+            </div>
 
             <PlaylistsList :playlists="group.resources" :group="group.id" />
 
-            <b-button class="float-right" :href="'/playlist/'+group.id+'/new'">ajouter une playlist</b-button>
         </div>
     </div>
 </template>
