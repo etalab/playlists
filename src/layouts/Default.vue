@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nprogress-container></nprogress-container>
     <header>
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand to="/">playlists</b-navbar-brand>
@@ -29,7 +30,12 @@
 </template>
 
 <script>
+import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
+
 export default {
+    components: {
+      NprogressContainer
+    },
     data(){
         return {
             user: {},

@@ -21,6 +21,10 @@ instance.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
+instance.interceptors.response.use(response => {
+  return response
+})
+
 function defaultErrorCallback (res) {
   console.error('API error', res)
 }

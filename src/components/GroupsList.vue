@@ -7,7 +7,7 @@
                   <h3 class="text-muted text-sm flex-grow-1">
                     {{ group.title }}
                   </h3>
-                  <b-button class="float-right" :href="'/playlist/'+group.id+'/new'">ajouter une playlist</b-button>
+                  <b-button class="float-right" :to="'/playlist/'+group.id+'/new'">ajouter une playlist</b-button>
               </div>
 
               <div class="lead">
