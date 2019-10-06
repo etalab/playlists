@@ -1,5 +1,8 @@
 <template>
     <Layout>
+        <div class="container mt-3" v-if="editable">
+          <b-link :to="url">&#8592; sortir de l'édition</b-link>
+        </div>
         <b-jumbotron
             fluid
             bg-variant="transparent"
