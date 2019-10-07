@@ -9,8 +9,9 @@ Une petite application pas vraiment en une seule page qui permet de créer des p
 ## prochaines étapes
 
 1. partager une playlist sur twitter
+1. changer l'ordre des jeux de données à coup de drag and drop
 1. indicateur d'activité/transition entre les pages
-1. gestion directe des dossiers (privé/public et édition) 
+1. gestion directe des dossiers (privé/public et édition)
 1. autres objets que les jeux de données
 
 
