@@ -5,7 +5,7 @@ import folders from '~/store/modules/folders'
 
 Vue.use(Vuex)
 
-const state = function(){
+const state = function () {
   return {
     user: {
       loggedIn: false,
@@ -55,11 +55,11 @@ const actions = {
 }
 
 export default new Vuex.Store({
-    strict: true,
-    modules:{
-        folders: folders
-    },
-    state: state,
-    mutations: mutations,
-    actions: actions
+  strict: true,
+  modules: {
+    folders: folders
+  },
+  state: state,
+  mutations: mutations,
+  actions: actions
 })

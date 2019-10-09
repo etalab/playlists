@@ -6,10 +6,9 @@
 </template>
 
 <script>
-const BASE_URL = "https://www.data.gouv.fr"
-const axios = require('axios')
-
 import Api from '~/services/Api'
+
+const BASE_URL = 'https://www.data.gouv.fr'
 
 const $api = new Api()
 
@@ -29,28 +28,28 @@ export default {
       }
     } else {
       this.$store.dispatch('login', this.token)
-      .then(() => {
+        .then(() => {
           $api.get('me')
-          .then((response)=>{
-            this.$store.dispatch('fillUserData', response.data).then(()=>{
+            .then((response) => {
+              this.$store.dispatch('fillUserData', response.data).then(() => {
                 this.$router.push('/')
+              })
             })
         })
-      })
     }
   },
   computed: {
-    tokenURL(){
-        const clientId = '5d8a02dd8b4c4139166c0e6c'
-        const redirectURI = encodeURIComponent(process.env.GRIDSOME_OAUTH_CALLBACK)
+    tokenURL () {
+      const clientId = '5d8a02dd8b4c4139166c0e6c'
+      const redirectURI = encodeURIComponent(process.env.GRIDSOME_OAUTH_CALLBACK)
 
-        return `${BASE_URL}/fr/oauth/authorize?redirect_uri=${redirectURI}&response_type=token&client_id=${clientId}&scope=default&grant_type=implicit`
+      return `${BASE_URL}/fr/oauth/authorize?redirect_uri=${redirectURI}&response_type=token&client_id=${clientId}&scope=default&grant_type=implicit`
     },
     token () {
-      return this.params['access_token']
+      return this.params.access_token
     },
     expiresIn () {
-      return this.params['expires_in']
+      return this.params.expires_in
     },
     params () {
       const parsedParams = {}

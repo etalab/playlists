@@ -18,25 +18,21 @@
 </template>
 
 <script>
-import Api from '~/services/Api'
-
-const $api = new Api
-
 export default {
-    props:{
-        group: String,
-        playlists: Array
+  props: {
+    group: String,
+    playlists: Array
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    playlistUrl: function (playlist) {
+      return `/playlist/${this.group}/${playlist.id}`
     },
-    data(){
-        return {}
-    },
-    methods: {
-        playlistUrl: function(playlist){
-            return `/playlist/${this.group}/${playlist.id}`
-        },
-        playlistCount: function(val){
-            return val || 0
-        }
+    playlistCount: function (val) {
+      return val || 0
     }
+  }
 }
 </script>

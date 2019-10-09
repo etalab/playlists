@@ -25,37 +25,32 @@
 </template>
 
 <script>
-import { debounce } from "debounce"
-
-import Api from '~/services/Api'
-import PlaylistsList from "~/components/PlaylistsList.vue"
-
-const $api = new Api()
+import PlaylistsList from '~/components/PlaylistsList.vue'
 
 export default {
-    components: {
-        PlaylistsList
-    },
-    data(){
-        return {
-            groups: []
-        }
-    },
-    computed: {},
-    watched:{
-        groups: function(){
-            console.log("changed", this.groups)
-        }
-    },
-    mounted: function(){
-        this.$store.watch(
-          (state, getters) => getters["folders/cache"],
-          (newValue, oldValue) => {
-            this.groups = this.$store.state.folders.cache
-          }
-        )
-
-        this.$store.dispatch('folders/fetchMe')
+  components: {
+    PlaylistsList
+  },
+  data () {
+    return {
+      groups: []
     }
+  },
+  computed: {},
+  watched: {
+    groups: function () {
+      console.log('changed', this.groups)
+    }
+  },
+  mounted: function () {
+    this.$store.watch(
+      (state, getters) => getters['folders/cache'],
+      (newValue, oldValue) => {
+        this.groups = this.$store.state.folders.cache
+      }
+    )
+
+    this.$store.dispatch('folders/fetchMe')
+  }
 }
 </script>

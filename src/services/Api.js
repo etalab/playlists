@@ -6,16 +6,15 @@ const instance = axios.create()
 instance.interceptors.request.use(config => {
   const token = store.state.user.token
   if (token) {
-      const headers = {
-          'Authorization': `Bearer ${token}`
-      }
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
 
-      // config = {}
-      config.headers = headers
+    config.headers = headers
 
-      return config
+    return config
   } else {
-      return config
+    return config
   }
 }, error => {
   return Promise.reject(error)
@@ -30,8 +29,10 @@ function defaultErrorCallback (res) {
 }
 
 export default class Api {
-  API_BASE_URL = 'https://www.data.gouv.fr'
-  UPLOADER_BASE_URL = 'http://localhost:3000/api'
+  constructor () {
+    this.API_BASE_URL = 'https://www.data.gouv.fr'
+    this.UPLOADER_BASE_URL = 'http://localhost:3000/api'
+  }
 
   get (path, params, errorCallback) {
     params = params || {}

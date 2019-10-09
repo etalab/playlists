@@ -6,6 +6,6 @@
 import PlaylistView from './index.vue'
 
 export default {
-    components: { PlaylistView }
+  components: { PlaylistView }
 }
 </script>

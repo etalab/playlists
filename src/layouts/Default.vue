@@ -35,24 +35,24 @@
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
 
 export default {
-    components: {
-      NprogressContainer
-    },
-    data(){
-        return {
-            user: {},
-        }
-    },
-    computed: {},
-    mounted(){
-        this.user = this.$store.state.user
-    },
-    methods: {
-        logout(){
-            this.$store.dispatch('logout')
-            this.$router.push("/")
-        }
+  components: {
+    NprogressContainer
+  },
+  data () {
+    return {
+      user: {}
     }
+  },
+  computed: {},
+  mounted () {
+    this.user = this.$store.state.user
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 

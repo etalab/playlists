@@ -11,7 +11,7 @@ import GroupsList from '~/components/GroupsList.vue'
 
 export default {
   components: {
-      GroupsList
+    GroupsList
   },
   metaInfo: {
     title: 'Home'

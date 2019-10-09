@@ -100,140 +100,139 @@ import qs from 'qs'
 import DatasetCard from '~/components/DatasetCard.vue'
 import Api from '~/services/Api'
 
-const $api = new Api
+const $api = new Api()
 
 export default {
-    components: {
-        DatasetCard
-    },
-    props: {
-        editable: Boolean
-    },
-    data() {
-        return {
-            dataset: null,
-            resource: {},
-            id: null,
-            title: null,
-            user: null,
-            currentUser: null,
-            description: null,
-            datasets: [],
-            query: '',
-            search_loading: false,
-            datasets_search: []
-        }
-    },
-    computed: {
-        isMine: function(){
-            return this.user == this.currentUser
-        },
-        // currentUser(){
-        //     return this.$store.state.user.data.id
-        // },
-        url: function(){
-            return `/playlist/${this.dataset}/${this.id}`
-        }
-    },
-    watch: {
-        datasets: function(val){
-            this.updateList()
-        }
-    },
-    methods: {
-        remove(dataset){
-            this.datasets = this.datasets.filter((v,i,a) => v != dataset)
-        },
-        add(dataset){
-            this.datasets.push(dataset)
-        },
-        deletePlaylist(){
-            $api.delete(`datasets/${this.dataset}/resources/${this.id}`)
-                .then((res)=>{
-                    this.$router.push({
-                        path: "/"
-                    })
-                })
-        },
-        getSearch(query){
-            this.datasets_search = []
-            this.search_loading = true
-
-            const base = "https://www.data.gouv.fr/api/1"
-            const dataset_url = `${base}/datasets/${query}/`
-            const search_url = `${base}/datasets/`
-
-            this.$http.get(dataset_url)
-                .then( response => {
-                    this.datasets_search = [ response.data.page ]
-                })
-                .finally( ()=> {
-                    this.$http.get(`${search_url}?${qs.stringify({ q: query })}`)
-                        .then( response => {
-                            const pages = response.data.data.map( o => o['page'])
-                            this.datasets_search = this.datasets_search.concat(pages)
-
-                        })
-                        .finally( () => this.search_loading = false )
-                    }
-                )
-        },
-        debouncheGetSearch: debounce(function(e){
-            this.getSearch(e)
-        }, 500),
-        updateMeta(field, content){
-            let payload = {}
-            payload[field] = content
-
-            $api.put(`datasets/${this.dataset}/resources/${this.id}`, payload)
-        },
-        onHeader(e){
-            this.updateMeta("title", e.target.innerText)
-        },
-        onLead(e){
-            this.updateMeta("description", e.target.innerText)
-        },
-        updateList(){
-            let bodyFormData = new FormData();
-            bodyFormData.append('file', new Blob(
-                [ this.datasets.join("\n") ],
-                { type: 'text' }),
-                `${this.id}.txt`
-            )
-
-            $api.post(`datasets/${this.dataset}/resources/${this.id}/upload`,
-                bodyFormData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            ).then(res=>{
-                this.updateMeta("title", this.title)
-                this.updateMeta("extras", { "datasets": this.datasets.length })
-            })
-        }
-    },
-    mounted() {
-        const { dataset, id } = this.$route.params
-        this.dataset = dataset
-        this.id = id
-
-        this.currentUser = this.$store.state.user.data.id
-
-        $api.get(`datasets/${this.dataset}`).then((res)=>{
-            this.user = res.data.owner.id
-        })
-
-        $api.get(`datasets/${this.dataset}/resources/${this.id}`).then((res)=>{
-            this.title = res.data.title
-            this.description = res.data.description
-            this.resource = res.data
-
-            this.$http.get(res.data.url).then((res)=>{
-                if(res.data) this.datasets = res.data.split("\n")
-            })
-        })
+  components: {
+    DatasetCard
+  },
+  props: {
+    editable: Boolean
+  },
+  data () {
+    return {
+      dataset: null,
+      resource: {},
+      id: null,
+      title: null,
+      user: null,
+      currentUser: null,
+      description: null,
+      datasets: [],
+      query: '',
+      search_loading: false,
+      datasets_search: []
     }
+  },
+  computed: {
+    isMine: function () {
+      return this.user === this.currentUser
+    },
+    // currentUser(){
+    //     return this.$store.state.user.data.id
+    // },
+    url: function () {
+      return `/playlist/${this.dataset}/${this.id}`
+    }
+  },
+  watch: {
+    datasets: function (val) {
+      this.updateList()
+    }
+  },
+  methods: {
+    remove (dataset) {
+      this.datasets = this.datasets.filter((v, i, a) => v !== dataset)
+    },
+    add (dataset) {
+      this.datasets.push(dataset)
+    },
+    deletePlaylist () {
+      $api.delete(`datasets/${this.dataset}/resources/${this.id}`)
+        .then((res) => {
+          this.$router.push({
+            path: '/'
+          })
+        })
+    },
+    getSearch (query) {
+      this.datasets_search = []
+      this.search_loading = true
+
+      const base = 'https://www.data.gouv.fr/api/1'
+      const datasetUrl = `${base}/datasets/${query}/`
+      const searchUrl = `${base}/datasets/`
+
+      this.$http.get(datasetUrl)
+        .then(response => {
+          this.datasets_search = [response.data.page]
+        })
+        .finally(() => {
+          this.$http.get(`${searchUrl}?${qs.stringify({ q: query })}`)
+            .then(response => {
+              const pages = response.data.data.map(o => o.page)
+              this.datasets_search = this.datasets_search.concat(pages)
+            })
+            .finally(() => { this.search_loading = false })
+        }
+        )
+    },
+    debouncheGetSearch: debounce(function (e) {
+      this.getSearch(e)
+    }, 500),
+    updateMeta (field, content) {
+      const payload = {}
+      payload[field] = content
+
+      $api.put(`datasets/${this.dataset}/resources/${this.id}`, payload)
+    },
+    onHeader (e) {
+      this.updateMeta('title', e.target.innerText)
+    },
+    onLead (e) {
+      this.updateMeta('description', e.target.innerText)
+    },
+    updateList () {
+      const bodyFormData = new FormData()
+      bodyFormData.append('file', new Blob(
+        [this.datasets.join('\n')],
+        { type: 'text' }),
+                `${this.id}.txt`
+      )
+
+      $api.post(`datasets/${this.dataset}/resources/${this.id}/upload`,
+        bodyFormData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(res => {
+        this.updateMeta('title', this.title)
+        this.updateMeta('extras', { datasets: this.datasets.length })
+      })
+    }
+  },
+  mounted () {
+    const { dataset, id } = this.$route.params
+    this.dataset = dataset
+    this.id = id
+
+    this.currentUser = this.$store.state.user.data.id
+
+    $api.get(`datasets/${this.dataset}`).then((res) => {
+      this.user = res.data.owner.id
+    })
+
+    $api.get(`datasets/${this.dataset}/resources/${this.id}`).then((res) => {
+      this.title = res.data.title
+      this.description = res.data.description
+      this.resource = res.data
+
+      this.$http.get(res.data.url).then((res) => {
+        if (res.data) this.datasets = res.data.split('\n')
+      })
+    })
+  }
 }
 </script>
