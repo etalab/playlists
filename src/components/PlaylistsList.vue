@@ -11,7 +11,7 @@
                 <b-card-text>
                     {{ playlist.description }}
                 </b-card-text>
-                <b-link :href="playlistUrl(playlist)" class="card-link">Voir la playlist</b-link>
+                <b-link :to="playlistUrl(playlist)" class="card-link">Voir la playlist</b-link>
             </b-card>
         </b-card-group>
     </div>
