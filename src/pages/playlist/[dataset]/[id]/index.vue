@@ -147,6 +147,12 @@
   </Layout>
 </template>
 
+<style scoped>
+[contenteditable] {
+    min-height: 2em;
+}
+</style>
+
 <script>
 import { debounce } from 'debounce'
 import qs from 'qs'
