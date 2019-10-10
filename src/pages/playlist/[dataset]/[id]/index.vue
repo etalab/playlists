@@ -33,11 +33,15 @@
     </b-jumbotron>
 
     <b-container>
-      <b-row>
+      <draggable
+        tag="b-row"
+        v-model="datasets"
+        handle=".handle"
+      >
         <b-col
           v-for="dataset in datasets"
           :key="dataset"
-          class="mb-4"
+          class="dataset mb-4"
           cols="12"
           md="4"
         >
@@ -51,10 +55,14 @@
             class="text-center text-muted small"
             v-if="editable"
           >
+            <font-awesome-icon
+              icon="arrows-alt"
+              class="handle mr-2 mt-1 float-right"
+            />
             <a :href="dataset">voir</a>
           </div>
         </b-col>
-      </b-row>
+      </draggable>
     </b-container>
 
     <b-container
@@ -155,6 +163,7 @@
 
 <script>
 import { debounce } from 'debounce'
+import draggable from 'vuedraggable'
 import qs from 'qs'
 
 import DatasetCard from '~/components/DatasetCard.vue'
@@ -164,7 +173,8 @@ const $api = new Api()
 
 export default {
   components: {
-    DatasetCard
+    DatasetCard,
+    draggable
   },
   props: {
     editable: Boolean
