@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <b-container class="pt-3">
-        <GroupsList />
+      <GroupsList />
     </b-container>
   </Layout>
 </template>

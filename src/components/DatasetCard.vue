@@ -1,12 +1,16 @@
 <template>
-    <div>
-        <b-spinner
-            variant="secondary"
-            small
-            v-if="!oembed.type"
-        ></b-spinner>
-        <div class="oembed-content" v-if="oembed.type" v-html="html"></div>
-    </div>
+  <div>
+    <b-spinner
+      variant="secondary"
+      small
+      v-if="!oembed.type"
+    />
+    <div
+      class="oembed-content"
+      v-if="oembed.type"
+      v-html="html"
+    />
+  </div>
 </template>
 
 <script>

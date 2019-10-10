@@ -1,5 +1,5 @@
 <template>
-    <div><a :href="url">{{ url }}</a></div>
+  <div><a :href="url">{{ url }}</a></div>
 </template>
 
 <script>

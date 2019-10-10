@@ -1,5 +1,5 @@
 <template>
-    <PlaylistView :editable="true" />
+  <PlaylistView :editable="true" />
 </template>
 
 <script>
