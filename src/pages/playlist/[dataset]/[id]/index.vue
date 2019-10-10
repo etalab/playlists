@@ -263,6 +263,8 @@ export default {
       this.updateMeta('description', e.target.innerText)
     },
     updateList () {
+      this.$nprogress.start()
+
       const bodyFormData = new FormData()
       bodyFormData.append('file', new Blob(
         [this.datasets.join('\n')],
@@ -280,6 +282,7 @@ export default {
       ).then(res => {
         this.updateMeta('title', this.title)
         this.updateMeta('extras', { datasets: this.datasets.length })
+        this.$nprogress.done()
       })
     }
   },
