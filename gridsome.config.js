@@ -6,5 +6,13 @@
 
 module.exports = {
   siteName: 'playlists de data.gouv.fr',
-  plugins: []
+  plugins: [
+    {
+      use: 'gridsome-plugin-matomo',
+      options: {
+        host: 'https://stats.data.gouv.fr/',
+        siteId: 97
+      }
+    }
+  ]
 }
