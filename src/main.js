@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import NProgress from 'vue-nprogress'
+import VueMatomo from 'vue-matomo'
 
 import store from './store'
 
@@ -23,9 +24,13 @@ export default function (Vue, { router, head, isClient, appOptions }) {
   Vue.component('font-awesome-icon', FontAwesomeIcon)
 
   Vue.use(VueAxios, axios)
-
   Vue.use(BootstrapVue)
   Vue.use(NProgress)
+  Vue.use(VueMatomo, {
+    host: 'https://stats.data.gouv.fr/',
+    siteId: 97,
+    router: router
+  })
 
   Vue.use(Vuex)
 
