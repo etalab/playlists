@@ -1,161 +1,159 @@
 <template>
-  <Layout>
-    <client-only>
-      <div
-        class="container mt-3"
-        v-if="editable"
+  <div>
+    <div
+      class="container mt-3"
+      v-if="editable"
+    >
+      <b-link :to="url">
+        &#8592; sortir de l'édition
+      </b-link>
+    </div>
+
+    <b-jumbotron
+      fluid
+      bg-variant="transparent"
+    >
+      <template v-slot:header>
+        <div
+          :contenteditable="editable"
+          @input="onHeader"
+        >
+          {{ title }}
+        </div>
+      </template>
+
+      <template v-slot:lead>
+        <div
+          class="text-secondary"
+          :contenteditable="editable"
+          @input="onLead"
+        >
+          {{ description }}
+        </div>
+      </template>
+    </b-jumbotron>
+
+    <b-container>
+      <draggable
+        tag="b-row"
+        v-model="datasets"
+        handle=".handle"
       >
-        <b-link :to="url">
-          &#8592; sortir de l'édition
-        </b-link>
+        <b-col
+          v-for="dataset in datasets"
+          :key="dataset"
+          class="dataset mb-4"
+          cols="12"
+          md="4"
+        >
+          <DatasetCard
+            :url="dataset"
+            :inactive="editable"
+            @click.native="remove(dataset)"
+          />
+
+          <div
+            class="text-center text-muted small"
+            v-if="editable"
+          >
+            <font-awesome-icon
+              icon="arrows-alt"
+              class="handle mr-2 mt-1 float-right"
+            />
+            <a :href="dataset">voir</a>
+          </div>
+        </b-col>
+      </draggable>
+    </b-container>
+
+    <b-container
+      class="mt-4"
+      v-if="editable"
+    >
+      <h3>Ajouter un jeu de données</h3>
+
+      <b-form-group
+        id="fieldset-1"
+        description="Indiquez un slug, un identifiant ou une recherche"
+        label-for="input-1"
+      >
+        <b-form-input
+          id="recherche"
+          v-model="query"
+          trim
+          @input="debouncheGetSearch"
+        />
+      </b-form-group>
+
+      <div
+        class="text-center"
+        v-if="search_loading"
+      >
+        <b-spinner />
       </div>
 
-      <b-jumbotron
-        fluid
-        bg-variant="transparent"
-      >
-        <template v-slot:header>
-          <div
-            :contenteditable="editable"
-            @input="onHeader"
-          >
-            {{ title }}
-          </div>
-        </template>
-
-        <template v-slot:lead>
-          <div
-            class="text-secondary"
-            :contenteditable="editable"
-            @input="onLead"
-          >
-            {{ description }}
-          </div>
-        </template>
-      </b-jumbotron>
-
-      <b-container>
-        <draggable
-          tag="b-row"
-          v-model="datasets"
-          handle=".handle"
+      <b-row>
+        <b-col
+          v-for="url in datasets_search"
+          :key="url"
+          v-show="!(datasets.includes(url))"
+          class="mb-4"
+          cols="12"
+          md="4"
         >
-          <b-col
-            v-for="dataset in datasets"
-            :key="dataset"
-            class="dataset mb-4"
-            cols="12"
-            md="4"
-          >
-            <DatasetCard
-              :url="dataset"
-              :inactive="editable"
-              @click.native="remove(dataset)"
-            />
-
-            <div
-              class="text-center text-muted small"
-              v-if="editable"
-            >
-              <font-awesome-icon
-                icon="arrows-alt"
-                class="handle mr-2 mt-1 float-right"
-              />
-              <a :href="dataset">voir</a>
-            </div>
-          </b-col>
-        </draggable>
-      </b-container>
-
-      <b-container
-        class="mt-4"
-        v-if="editable"
-      >
-        <h3>Ajouter un jeu de données</h3>
-
-        <b-form-group
-          id="fieldset-1"
-          description="Indiquez un slug, un identifiant ou une recherche"
-          label-for="input-1"
-        >
-          <b-form-input
-            id="recherche"
-            v-model="query"
-            trim
-            @input="debouncheGetSearch"
+          <DatasetCard
+            :url="url"
+            :inactive="true"
+            @click.native="add(url)"
           />
-        </b-form-group>
 
-        <div
-          class="text-center"
-          v-if="search_loading"
+          <div class="text-center text-muted small">
+            <a :href="url">voir</a>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+
+    <b-container class="mt-5">
+      <b-row>
+        <b-col
+          class="mr-auto"
+          cols="auto"
         >
-          <b-spinner />
-        </div>
-
-        <b-row>
-          <b-col
-            v-for="url in datasets_search"
-            :key="url"
-            v-show="!(datasets.includes(url))"
-            class="mb-4"
-            cols="12"
-            md="4"
+          <b-button :href="resource.url">
+            télécharger la playlist
+          </b-button>
+          <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
+        </b-col>
+        <b-col
+          cols="auto"
+          v-if="isMine"
+        >
+          <b-link
+            v-if="!editable"
+            :to="url+'/edit'"
           >
-            <DatasetCard
-              :url="url"
-              :inactive="true"
-              @click.native="add(url)"
-            />
-
-            <div class="text-center text-muted small">
-              <a :href="url">voir</a>
-            </div>
-          </b-col>
-        </b-row>
-      </b-container>
-
-      <b-container class="mt-5">
-        <b-row>
-          <b-col
-            class="mr-auto"
-            cols="auto"
+            éditer
+          </b-link>
+          <b-link
+            v-else
+            class="text-danger"
+            v-b-modal.confirm-delete
           >
-            <b-button :href="resource.url">
-              télécharger la playlist
-            </b-button>
-            <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
-          </b-col>
-          <b-col
-            cols="auto"
-            v-if="isMine"
-          >
-            <b-link
-              v-if="!editable"
-              :to="url+'/edit'"
-            >
-              éditer
-            </b-link>
-            <b-link
-              v-else
-              class="text-danger"
-              v-b-modal.confirm-delete
-            >
-              supprimer
-            </b-link>
+            supprimer
+          </b-link>
 
-            <b-modal
-              id="confirm-delete"
-              title="Confirmer la suppression"
-              @ok="deletePlaylist"
-            >
-              <p>Êtes-vous certain.e de vouloir supprimer cette playlist ?</p>
-            </b-modal>
-          </b-col>
-        </b-row>
-      </b-container>
-    </client-only>
-  </Layout>
+          <b-modal
+            id="confirm-delete"
+            title="Confirmer la suppression"
+            @ok="deletePlaylist"
+          >
+            <p>Êtes-vous certain.e de vouloir supprimer cette playlist ?</p>
+          </b-modal>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <style scoped>

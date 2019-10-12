@@ -1,13 +1,15 @@
 <template>
-  <client-only>
-    <playlist-edit />
-  </client-only>
+  <Layout>
+    <client-only>
+      <playlist-edit />
+    </client-only>
+  </Layout>
 </template>
 
 <script>
 import PlaylistEdit from '~/components/PlaylistEdit'
 
 export default {
-    components: { PlaylistEdit }
+  components: { PlaylistEdit }
 }
 </script>

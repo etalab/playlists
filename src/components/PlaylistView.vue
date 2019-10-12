@@ -1,56 +1,59 @@
 <template>
-  <Layout>
-    <client-only>
-      <b-jumbotron
-        fluid
-        bg-variant="transparent"
-      >
-        <template v-slot:header>
-          <div>{{ title }}</div>
-        </template>
+  <div>
+    <b-jumbotron
+      fluid
+      bg-variant="transparent"
+    >
+      <template v-slot:header>
+        <div>{{ title }}</div>
+      </template>
 
-        <template v-slot:lead>
-          <div class="text-secondary">
-            {{ description }}
-          </div>
-        </template>
-      </b-jumbotron>
+      <template v-slot:lead>
+        <div class="text-secondary">
+          {{ description }}
+        </div>
+      </template>
+    </b-jumbotron>
 
-      <b-container>
-        <b-row>
-          <b-col
-            v-for="dataset in datasets"
-            :key="dataset"
-            class="dataset mb-4"
-            cols="12"
-            md="4"
-          >
-            <DatasetCard :url="dataset" />
-          </b-col>
-        </b-row>
-      </b-container>
+    <b-container>
+      <b-row>
+        <b-col
+          v-for="dataset in datasets"
+          :key="dataset"
+          class="dataset mb-4"
+          cols="12"
+          md="4"
+        >
+          <DatasetCard :url="dataset" />
+        </b-col>
+      </b-row>
+    </b-container>
 
-      <b-container class="mt-5">
-        <b-row>
-          <b-col
-            class="mr-auto"
-            cols="auto"
+    <b-container class="mt-5">
+      <b-row>
+        <b-col
+          class="mr-auto"
+          cols="auto"
+        >
+          <b-button :href="resource.url">
+            télécharger la playlist
+          </b-button>
+          <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
+        </b-col>
+        <b-col
+          cols="auto"
+          v-if="isMine"
+        >
+          <b-link
+            :to="'./edit'"
+            append
           >
-            <b-button :href="resource.url">
-              télécharger la playlist
-            </b-button>
-            <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
-          </b-col>
-          <b-col
-            cols="auto"
-            v-if="isMine"
-          >
-            <b-link :to="'./edit'" append>éditer</b-link>
-          </b-col>
-        </b-row>
-      </b-container>
-    </client-only>
-  </Layout>
+            éditer
+          </b-link>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>

@@ -1,13 +1,15 @@
 <template>
-  <client-only>
-    <playlist-view />
-  </client-only>
+  <Layout>
+    <client-only>
+      <playlist-view />
+    </client-only>
+  </Layout>
 </template>
 
 <script>
 import PlaylistView from '~/components/PlaylistView'
 
 export default {
-    components: { PlaylistView }
+  components: { PlaylistView }
 }
 </script>
