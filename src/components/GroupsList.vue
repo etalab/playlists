@@ -1,67 +1,29 @@
 <template>
   <div>
-    <div
+    <groups-list-item
       v-for="group in groups"
       :key="group.id"
-    >
-      <div class="mb-4">
-        <div class="d-flex">
-          <h3 class="text-muted text-sm flex-grow-1">
-            {{ group.title }}
-          </h3>
-          <b-button
-            class="float-right"
-            :to="'/playlist/'+group.id+'/new'"
-          >
-            ajouter une playlist
-          </b-button>
-        </div>
-
-        <div class="lead">
-          {{ group.description }}
-        </div>
-
-        <small><a :href="group.page">voir le dossier sur data.gouv.fr</a></small>
-      </div>
-
-      <PlaylistsList
-        :playlists="group.resources"
-        :group="group.id"
-      />
-    </div>
+      :group="group"
+    />
   </div>
 </template>
 
 <script>
-import PlaylistsList from '~/components/PlaylistsList.vue'
+import GroupsListItem from '~/components/GroupsListItem'
 
 export default {
   components: {
-    PlaylistsList
+    GroupsListItem
   },
   data () {
-    return {
-      //      groups: []
-    }
+    return {}
   },
   computed: {
     groups: function () {
       return this.$store.state.folders.cache
     }
   },
-  watched: {
-    groups: function () {
-      console.log('changed', this.groups)
-    }
-  },
   mounted: function () {
-    // this.$store.watch(
-    //   (state, getters) => getters['folders/cache'],
-    //   (newValue, oldValue) => {
-    //     this.groups = this.$store.state.folders.cache
-    //   }
-    // )
-
     this.$store.dispatch('folders/fetchMe')
   }
 }
