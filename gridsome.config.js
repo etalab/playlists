@@ -14,5 +14,6 @@ module.exports = {
         siteId: 97
       }
     }
-  ]
+  ],
+  chainWebpack: config => config.mode('development')
 }
