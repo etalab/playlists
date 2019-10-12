@@ -16,7 +16,9 @@ export default {
     GroupsListItem
   },
   data () {
-    return {}
+    return {
+      polling: null
+    }
   },
   computed: {
     groups: function () {
@@ -24,7 +26,12 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.dispatch('folders/fetchMe')
+    this.polling = setInterval(() => {
+      this.$store.dispatch('folders/fetchMe')
+    }, 3000)
+  },
+  beforeDestroy () {
+    clearInterval(this.polling)
   }
 }
 </script>
