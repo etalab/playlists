@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      class="container mt-3"
-      v-if="editable"
-    >
+    <div class="container mt-3">
       <b-link :to="url">
         &#8592; sortir de l'édition
       </b-link>
@@ -15,7 +12,7 @@
     >
       <template v-slot:header>
         <div
-          :contenteditable="editable"
+          contenteditable
           @input="onHeader"
         >
           {{ title }}
@@ -24,8 +21,8 @@
 
       <template v-slot:lead>
         <div
+          contenteditable
           class="text-secondary"
-          :contenteditable="editable"
           @input="onLead"
         >
           {{ description }}
@@ -48,14 +45,11 @@
         >
           <DatasetCard
             :url="d"
-            :inactive="editable"
+            inactive
             @click.native="remove(d)"
           />
 
-          <div
-            class="text-center text-muted small"
-            v-if="editable"
-          >
+          <div class="text-center text-muted small">
             <font-awesome-icon
               icon="arrows-alt"
               class="handle mr-2 mt-1 float-right"
@@ -66,10 +60,7 @@
       </draggable>
     </b-container>
 
-    <b-container
-      class="mt-4"
-      v-if="editable"
-    >
+    <b-container class="mt-4">
       <h3>Ajouter un jeu de données</h3>
 
       <b-form-group
@@ -102,8 +93,8 @@
           md="4"
         >
           <DatasetCard
-            :url="url"
-            :inactive="true"
+            :url="d"
+            inactive
             @click.native="add(d)"
           />
 
@@ -123,20 +114,12 @@
           <b-button :href="resource.url">
             télécharger la playlist
           </b-button>
-          <span class="text-muted ml-2">dernière modification : {{ resource.last_modified }}</span>
+          <span class="text-muted ml-2">
+            dernière modification : {{ resource.last_modified }}
+          </span>
         </b-col>
-        <b-col
-          cols="auto"
-          v-if="isMine"
-        >
+        <b-col cols="auto">
           <b-link
-            v-if="!editable"
-            :to="url+'/edit'"
-          >
-            éditer
-          </b-link>
-          <b-link
-            v-else
             class="text-danger"
             v-b-modal.confirm-delete
           >
@@ -179,13 +162,11 @@ export default {
   },
   data () {
     return {
-      editable: true,
       dataset: null,
       resource: {},
       id: null,
       title: null,
       user: null,
-      currentUser: null,
       description: null,
       datasets: [],
       query: '',
@@ -194,12 +175,9 @@ export default {
     }
   },
   computed: {
-    isMine: function () {
-      return this.user === this.currentUser
+    currentUser () {
+      return this.$store.state.user.data.id
     },
-    // currentUser(){
-    //     return this.$store.state.user.data.id
-    // },
     url: function () {
       return `/playlist/${this.dataset}/${this.id}`
     }
@@ -211,14 +189,10 @@ export default {
   },
   methods: {
     remove (dataset) {
-      if (this.editable) {
-        this.datasets = this.datasets.filter((v, i, a) => v !== dataset)
-      }
+      this.datasets = this.datasets.filter((v, i, a) => v !== dataset)
     },
     add (dataset) {
-      if (this.editable) {
-        this.datasets.push(dataset)
-      }
+      this.datasets.push(dataset)
     },
     deletePlaylist () {
       $api.delete(`datasets/${this.dataset}/resources/${this.id}`)
@@ -247,8 +221,7 @@ export default {
               this.datasets_search = this.datasets_search.concat(pages)
             })
             .finally(() => { this.search_loading = false })
-        }
-        )
+        })
     },
     debouncheGetSearch: debounce(function (e) {
       this.getSearch(e)
@@ -294,10 +267,12 @@ export default {
     this.dataset = dataset
     this.id = id
 
-    this.currentUser = this.$store.state.user.data.id
-
     $api.get(`datasets/${this.dataset}`).then((res) => {
       this.user = res.data.owner.id
+
+      if (this.user !== this.currentUser) {
+        this.$router.push('/')
+      }
     })
 
     $api.get(`datasets/${this.dataset}/resources/${this.id}`).then((res) => {
