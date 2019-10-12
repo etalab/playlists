@@ -1,11 +1,13 @@
 <template>
-  <PlaylistView :editable="true" />
+  <client-only>
+    <playlist-edit />
+  </client-only>
 </template>
 
 <script>
-import PlaylistView from './index.vue'
+import PlaylistEdit from '~/components/PlaylistEdit'
 
 export default {
-  components: { PlaylistView }
+    components: { PlaylistEdit }
 }
 </script>

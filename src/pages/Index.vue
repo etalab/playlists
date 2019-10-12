@@ -1,8 +1,10 @@
 <template>
   <Layout>
-    <b-container class="pt-3">
-      <GroupsList />
-    </b-container>
+    <client-only>
+      <b-container class="pt-3">
+        <GroupsList />
+      </b-container>
+    </client-only>
   </Layout>
 </template>
 

@@ -41,22 +41,26 @@ export default {
   },
   data () {
     return {
-      groups: []
+      //      groups: []
     }
   },
-  computed: {},
+  computed: {
+    groups: function () {
+      return this.$store.state.folders.cache
+    }
+  },
   watched: {
     groups: function () {
       console.log('changed', this.groups)
     }
   },
   mounted: function () {
-    this.$store.watch(
-      (state, getters) => getters['folders/cache'],
-      (newValue, oldValue) => {
-        this.groups = this.$store.state.folders.cache
-      }
-    )
+    // this.$store.watch(
+    //   (state, getters) => getters['folders/cache'],
+    //   (newValue, oldValue) => {
+    //     this.groups = this.$store.state.folders.cache
+    //   }
+    // )
 
     this.$store.dispatch('folders/fetchMe')
   }
