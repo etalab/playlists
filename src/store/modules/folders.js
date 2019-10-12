@@ -25,7 +25,7 @@ const module = {
 
       for (const k in res.data) {
         const dataset = res.data[k]
-        if ('playlist' in dataset.extras) {
+        if ('playlist' in dataset.extras && !dataset.deleted) {
           folders.push(dataset)
         }
       }

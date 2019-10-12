@@ -26,6 +26,8 @@ export default {
     }
   },
   mounted: function () {
+    this.$store.dispatch('folders/fetchMe')
+
     this.polling = setInterval(() => {
       this.$store.dispatch('folders/fetchMe')
     }, 3000)
