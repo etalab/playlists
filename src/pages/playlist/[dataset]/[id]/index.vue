@@ -212,10 +212,14 @@ export default {
   },
   methods: {
     remove (dataset) {
-      this.datasets = this.datasets.filter((v, i, a) => v !== dataset)
+      if (this.editable) {
+        this.datasets = this.datasets.filter((v, i, a) => v !== dataset)
+      }
     },
     add (dataset) {
-      this.datasets.push(dataset)
+      if (this.editable) {
+        this.datasets.push(dataset)
+      }
     },
     deletePlaylist () {
       $api.delete(`datasets/${this.dataset}/resources/${this.id}`)
