@@ -25,8 +25,16 @@
 <script>
 export default {
   props: {
-    group: String,
-    playlists: Array
+    group: {
+      type: String,
+      default: null,
+      required: true
+    },
+    playlists: {
+      type: Array,
+      default: () => [],
+      required: true
+    }
   },
   data () {
     return {}

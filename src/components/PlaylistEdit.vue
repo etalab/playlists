@@ -40,16 +40,16 @@
         handle=".handle"
       >
         <b-col
-          v-for="dataset in datasets"
-          :key="dataset"
+          v-for="d in datasets"
+          :key="d"
           class="dataset mb-4"
           cols="12"
           md="4"
         >
           <DatasetCard
-            :url="dataset"
+            :url="d"
             :inactive="editable"
-            @click.native="remove(dataset)"
+            @click.native="remove(d)"
           />
 
           <div
@@ -60,7 +60,7 @@
               icon="arrows-alt"
               class="handle mr-2 mt-1 float-right"
             />
-            <a :href="dataset">voir</a>
+            <a :href="d">voir</a>
           </div>
         </b-col>
       </draggable>
@@ -94,9 +94,9 @@
 
       <b-row>
         <b-col
-          v-for="url in datasets_search"
-          :key="url"
-          v-show="!(datasets.includes(url))"
+          v-for="d in datasets_search"
+          :key="d"
+          v-show="!(datasets.includes(d))"
           class="mb-4"
           cols="12"
           md="4"
@@ -104,11 +104,11 @@
           <DatasetCard
             :url="url"
             :inactive="true"
-            @click.native="add(url)"
+            @click.native="add(d)"
           />
 
           <div class="text-center text-muted small">
-            <a :href="url">voir</a>
+            <a :href="d">voir</a>
           </div>
         </b-col>
       </b-row>

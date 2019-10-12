@@ -15,7 +15,16 @@
 
 <script>
 export default {
-  props: ['url', 'inactive'],
+  props: {
+    url: {
+      type: String,
+      default: null
+    },
+    inactive: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       oembed: Object,

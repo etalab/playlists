@@ -18,13 +18,13 @@
     <b-container>
       <b-row>
         <b-col
-          v-for="dataset in datasets"
-          :key="dataset"
+          v-for="d in datasets"
+          :key="d"
           class="dataset mb-4"
           cols="12"
           md="4"
         >
-          <DatasetCard :url="dataset" />
+          <DatasetCard :url="d" />
         </b-col>
       </b-row>
     </b-container>
