@@ -7,9 +7,9 @@
         <div class="border-top my-4"></div>
 
         <b-row>
-          <b-col class="text-center">
-            <b-button to="/folder/new">Ajouter un nouveau dossier</b-button>
-          </b-col>
+          <client-only>
+            <groups-list-new />
+          </client-only>
         </b-row>
       </b-container>
     </client-only>
@@ -18,10 +18,12 @@
 
 <script>
 import GroupsList from '~/components/GroupsList.vue'
+import GroupsListNew from '~/components/GroupsListNew.vue'
 
 export default {
   components: {
-    GroupsList
+    GroupsList,
+    GroupsListNew
   },
   metaInfo: {
     title: 'Home'
