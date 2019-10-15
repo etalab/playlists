@@ -35,17 +35,17 @@ export default {
     this.restore()
   },
   watch: {
-    waiting: function () {
+    waiting () {
       if (!this.waiting) this.restore()
       else this.message = ''
     }
   },
   methods: {
-    previewChange: function () {
+    previewChange () {
       this.variant = (this.isPrivate) ? 'success' : 'secondary'
       this.message = (this.isPrivate) ? 'publier' : 'dépublier'
     },
-    restore: function () {
+    restore () {
       this.variant = (this.isPrivate) ? 'outline-secondary' : 'success'
       this.message = (this.isPrivate) ? 'privé' : 'public'
     }

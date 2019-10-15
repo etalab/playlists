@@ -40,10 +40,10 @@ export default {
     return {}
   },
   methods: {
-    playlistUrl: function (playlist) {
+    playlistUrl (playlist) {
       return `/playlist/${this.group}/${playlist.id}`
     },
-    playlistCount: function (val) {
+    playlistCount (val) {
       return val || 0
     }
   }

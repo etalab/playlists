@@ -18,7 +18,7 @@ const module = {
     }
   },
   actions: {
-    createExample: function () {
+    createExample () {
       const info = {
         title: 'Mes playlists',
         description: 'mes belles playlists',
@@ -30,7 +30,7 @@ const module = {
 
       $api.post('datasets', info)
     },
-    fetchMe: async function ({ dispatch, commit }) {
+    async fetchMe ({ dispatch, commit }) {
       const folders = []
 
       try {

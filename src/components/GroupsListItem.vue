@@ -59,12 +59,12 @@ export default {
     }
   },
   computed: {
-    waiting: function () {
+    waiting () {
       return this.isPrivate !== this.group.private
     }
   },
   methods: {
-    publish: function () {
+    publish () {
       this.isPrivate = !this.isPrivate
 
       $api.put(`datasets/${this.group.id}`, {

@@ -4,7 +4,7 @@
       <b-container class="pt-3">
         <GroupsList />
 
-        <div class="border-top my-4"></div>
+        <div class="border-top my-4" />
 
         <b-row>
           <client-only>

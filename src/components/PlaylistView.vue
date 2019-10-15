@@ -84,13 +84,13 @@ export default {
     }
   },
   computed: {
-    isMine: function () {
+    isMine () {
       return this.user === this.currentUser
     },
     currentUser () {
       return this.$store.state.user.data.id
     },
-    url: function () {
+    url () {
       return `/playlist/${this.dataset}/${this.id}`
     }
   },

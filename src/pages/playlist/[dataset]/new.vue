@@ -17,11 +17,11 @@ export default {
     }
   },
   computed: {
-    url: function () {
+    url () {
       return `/playlist/${this.dataset}/${this.resource}/edit`
     }
   },
-  mounted: function () {
+  mounted () {
     const { dataset } = this.$route.params
     this.dataset = dataset
 

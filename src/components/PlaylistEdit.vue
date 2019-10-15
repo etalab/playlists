@@ -178,12 +178,12 @@ export default {
     currentUser () {
       return this.$store.state.user.data.id
     },
-    url: function () {
+    url () {
       return `/playlist/${this.dataset}/${this.id}`
     }
   },
   watch: {
-    datasets: function (val) {
+    datasets (val) {
       this.updateList()
     }
   },

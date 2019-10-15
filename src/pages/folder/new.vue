@@ -15,7 +15,7 @@
             type="text"
             required
             placeholder="Titre de votre dossier"
-          ></b-form-input>
+          />
         </b-form-group>
 
         <b-form-group
@@ -32,7 +32,12 @@
           />
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button
+          type="submit"
+          variant="primary"
+        >
+          Submit
+        </b-button>
       </b-form>
     </b-container>
   </Layout>
@@ -44,7 +49,7 @@ import Api from '~/services/Api'
 const $api = new Api()
 
 export default {
-  data(){
+  data () {
     return {
       form: {
         title: '',
@@ -57,9 +62,9 @@ export default {
     }
   },
   methods: {
-    create: function (event){
+    create (event) {
       event.preventDefault()
-      $api.post('datasets', this.form).then((res)=>{
+      $api.post('datasets', this.form).then((res) => {
         this.$router.push('/')
       })
     }

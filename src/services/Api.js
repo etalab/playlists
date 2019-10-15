@@ -38,7 +38,7 @@ export default class Api {
     params = params || {}
     errorCallback = errorCallback || defaultErrorCallback
 
-    return instance.get(`${this.API_BASE_URL}/api/1/${path}/`, { params: params }).catch(errorCallback)
+    return instance.get(`${this.API_BASE_URL}/api/1/${path}/`, { params }).catch(errorCallback)
   }
 
   post (path, data, errorCallback) {

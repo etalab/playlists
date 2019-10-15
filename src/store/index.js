@@ -57,9 +57,9 @@ const actions = {
 export default new Vuex.Store({
   strict: true,
   modules: {
-    folders: folders
+    folders
   },
-  state: state,
-  mutations: mutations,
-  actions: actions
+  state,
+  mutations,
+  actions
 })

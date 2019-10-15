@@ -33,7 +33,7 @@ export default {
     }
   },
   computed: {
-    html: function () {
+    html () {
       const el = document.createElement('div')
       el.innerHTML = this.oembed.html
 

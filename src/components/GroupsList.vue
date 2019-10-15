@@ -21,11 +21,11 @@ export default {
     }
   },
   computed: {
-    groups: function () {
+    groups () {
       return this.$store.state.folders.cache
     }
   },
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('folders/fetchMe')
 
     this.polling = setInterval(() => {

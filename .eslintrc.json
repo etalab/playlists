@@ -22,5 +22,6 @@
         "gridsome"
     ],
     "rules": {
+        "object-shorthand": ["error", "always"]
     }
 }
