@@ -39,6 +39,9 @@ export default {
 
       if (this.inactive) {
         el.firstChild.children[2].removeAttribute('href')
+      } else {
+        el.firstChild.children[2].setAttribute('target', '_blank')
+        el.firstChild.children[2].setAttribute('rel', 'noopener noreferrer')
       }
 
       return el.innerHTML

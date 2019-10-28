@@ -55,7 +55,11 @@
               icon="arrows-alt"
               class="handle mr-2 mt-1 float-right"
             />
-            <a :href="d">voir</a>
+            <a
+              :href="d"
+              target="_blank"
+              rel="noopener noreferrer"
+            >voir</a>
           </div>
         </b-col>
       </draggable>
@@ -100,7 +104,11 @@
           />
 
           <div class="text-center text-muted small">
-            <a :href="d">voir</a>
+            <a
+              :href="d"
+              target="_blank"
+              rel="noopener noreferrer"
+            >voir</a>
           </div>
         </b-col>
       </b-row>
