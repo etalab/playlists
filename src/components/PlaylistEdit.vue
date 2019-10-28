@@ -6,31 +6,32 @@
       </b-link>
     </div>
 
-    <b-jumbotron
-      fluid
-      bg-variant="transparent"
-    >
-      <template v-slot:header>
-        <div
-          contenteditable
+    <b-container class="my-5">
+      <b-form-group label="Titre">
+        <b-form-input
+          type="text"
+          size="lg"
+          v-model="title"
           @input="onHeader"
-        >
-          {{ title }}
-        </div>
-      </template>
-
-      <template v-slot:lead>
-        <div
-          contenteditable
-          class="text-secondary"
+          placeholder="Le titre de la playslit"
+        />
+      </b-form-group>
+      <b-form-group label="Description">
+        <b-form-textarea
+          rows="4"
+          max-rows="6"
+          v-model="description"
           @input="onLead"
-        >
-          {{ description }}
-        </div>
-      </template>
-    </b-jumbotron>
+          placeholder="La description de la playlist"
+        />
+      </b-form-group>
+    </b-container>
 
     <b-container>
+      <div class="mb-2">
+        Les jeux de données
+      </div>
+
       <draggable
         tag="b-row"
         v-model="datasets"
@@ -232,13 +233,17 @@ export default {
       const payload = {}
       payload[field] = content
 
+      this.$nprogress.start()
       $api.put(`datasets/${this.dataset}/resources/${this.id}`, payload)
+        .then(() => {
+          this.$nprogress.done()
+        })
     },
-    onHeader (e) {
-      this.updateMeta('title', e.target.innerText)
+    onHeader () {
+      this.updateMeta('title', this.title)
     },
-    onLead (e) {
-      this.updateMeta('description', e.target.innerText)
+    onLead () {
+      this.updateMeta('description', this.description)
     },
     updateList () {
       this.$nprogress.start()
