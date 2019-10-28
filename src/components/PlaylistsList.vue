@@ -15,7 +15,13 @@
           :to="playlistUrl(playlist)"
           class="card-link"
         >
-          Voir la playlist
+          voir
+        </b-link>
+        <b-link
+          :to="playlistUrlEdit(playlist)"
+          class="card-link"
+        >
+          editer
         </b-link>
       </b-card>
     </b-card-group>
@@ -42,6 +48,9 @@ export default {
   methods: {
     playlistUrl (playlist) {
       return `/playlist/${this.group}/${playlist.id}`
+    },
+    playlistUrlEdit (playlist) {
+      return `/playlist/${this.group}/${playlist.id}/edit`
     },
     playlistCount (val) {
       return val || 0
