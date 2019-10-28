@@ -271,7 +271,7 @@ export default {
       this.user = res.data.owner.id
 
       if (this.user !== this.currentUser) {
-        this.$router.push('/')
+        this.$router.push(`/playlist/${dataset}/${id}`)
       }
     })
 
