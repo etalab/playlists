@@ -6,7 +6,7 @@
   ],
   "build": {
       "env": {
-        "GRIDSOME_OAUTH_CALLBACK": "https://playlists.tkd.now.sh/login"
+        "GRIDSOME_OAUTH_CALLBACK": "@oauth_callback"
       }
   }
 }
