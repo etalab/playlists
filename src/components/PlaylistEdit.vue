@@ -87,7 +87,6 @@
         <b-col
           v-for="d in datasets_search"
           :key="d"
-          v-show="!(datasets.includes(d))"
           class="mb-4"
           cols="12"
           md="4"
@@ -95,6 +94,7 @@
           <DatasetCard
             :url="d"
             inactive
+            :class="{inactive: datasets.includes(d)}"
             @click.native="add(d)"
           />
 
@@ -139,9 +139,9 @@
   </div>
 </template>
 
-<style scoped>
-[contenteditable] {
-    min-height: 2em;
+<style>
+.inactive {
+    opacity: 0.4;
 }
 </style>
 
@@ -192,7 +192,9 @@ export default {
       this.datasets = this.datasets.filter((v, i, a) => v !== dataset)
     },
     add (dataset) {
-      this.datasets.push(dataset)
+      if (!(this.datasets.includes(dataset))) {
+        this.datasets.push(dataset)
+      }
     },
     deletePlaylist () {
       $api.delete(`datasets/${this.dataset}/resources/${this.id}`)
