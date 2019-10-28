@@ -5,18 +5,14 @@
         <h3 class="text-muted text-sm flex-grow-1">
           {{ group.title }}
         </h3>
+        <!--
         <button-publish
           class="float-right mr-2"
           :is-private="isPrivate"
           :waiting="waiting"
           @click.native="publish"
         />
-        <b-button
-          class="float-right"
-          :to="'/playlist/'+group.id+'/new'"
-        >
-          ajouter une playlist
-        </b-button>
+        -->
       </div>
 
       <div class="lead">
@@ -30,6 +26,14 @@
       :playlists="group.resources"
       :group="group.id"
     />
+
+    <div class="mt-3 center">
+      <b-button
+        :to="'/playlist/'+group.id+'/new'"
+      >
+        ajouter une playlist
+      </b-button>
+    </div>
   </div>
 </template>
 
