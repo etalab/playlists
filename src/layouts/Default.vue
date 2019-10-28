@@ -1,26 +1,36 @@
 <template>
   <div>
     <nprogress-container />
-    <header>
-      <b-navbar
-        toggleable="lg"
-        type="dark"
-        variant="dark"
-      >
-        <b-container>
-          <b-navbar-brand to="/">
-            playlists
-          </b-navbar-brand>
+    <div
+      class="d-flex flex-column"
+      style="min-height: 100vh"
+    >
+      <header>
+        <b-navbar
+          toggleable="lg"
+          type="dark"
+          variant="dark"
+        >
+          <b-container>
+            <b-navbar-brand to="/">
+              playlists
+            </b-navbar-brand>
 
-          <client-only>
-            <nav-user />
-          </client-only>
-        </b-container>
-      </b-navbar>
-    </header>
+            <client-only>
+              <nav-user />
+            </client-only>
+          </b-container>
+        </b-navbar>
+      </header>
 
-    <div class="mb-4">
-      <slot />
+      <div class="mb-4 flex-grow-1">
+        <slot />
+      </div>
+
+      <TheFooter
+        parent="https://etalab.studio"
+        bugs="https://github.com/taniki/playlists/issues/new"
+      />
     </div>
   </div>
 </template>
@@ -28,11 +38,13 @@
 <script>
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
 import NavUser from '~/components/NavUser.vue'
+import TheFooter from '~/components/TheFooter.vue'
 
 export default {
   components: {
     NprogressContainer,
-    NavUser
+    NavUser,
+    TheFooter
   }
 }
 </script>
