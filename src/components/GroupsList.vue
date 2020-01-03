@@ -4,6 +4,7 @@
       v-for="group in groups"
       :key="group.id"
       :group="group"
+      class="mt-5"
     />
   </div>
 </template>
