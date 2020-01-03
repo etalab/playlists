@@ -68,6 +68,7 @@ export default {
       this.error = undefined
       this.oembed = {}
       if (!url) return
+      if (url.slice(-1) != '/') url += '/'
       try {
         const oembedUrl = `${this.oembedApi}?url=${encodeURIComponent(url)}`
         const response = await fetch(oembedUrl)
