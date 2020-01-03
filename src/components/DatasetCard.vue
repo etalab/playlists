@@ -3,13 +3,26 @@
     <b-spinner
       variant="secondary"
       small
-      v-if="!oembed.type"
+      v-if="!oembed.type && !error"
     />
     <div
       class="oembed-content"
       v-if="oembed.type"
       v-html="html"
     />
+    <div v-if="error">
+      <b-card
+        header="jeu de données indisponible"
+        header-text-variant="white"
+        header-bg-variant="warning"
+        border-variant="warning"
+      >
+        <b-card-text class="small text-muted">
+          {{ url }}
+        </b-card-text>
+        </span>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -65,6 +78,7 @@ export default {
           this.error = response.statusText
         }
       } catch (error) {
+        console.error('not found:', this.url)
         this.error = error
       }
     }
