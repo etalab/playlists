@@ -28,14 +28,21 @@
 export default {
   computed: {
     user () {
-      return this.$store.state.user
+      return this.$store.state.auth.user
     }
   },
   methods: {
     logout () {
-      this.$store.dispatch('logout')
+      this.$store.dispatch('auth/logout')
       this.$router.push('/')
     }
+  },
+  mounted () {
+    this.polling = setInterval(() => {
+      if (this.$store.state.auth.user.token !== '') {
+        this.$store.dispatch('auth/checkToken')
+      }
+    }, 3000)
   }
 }
 </script>

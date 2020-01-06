@@ -30,12 +30,12 @@ export default {
     this.$store.dispatch('folders/fetchMe')
 
     this.polling = setInterval(() => {
-      this.$store.dispatch('folders/fetchMe')
+      // this.$store.dispatch('folders/fetchMe')
     }, 3000)
 
     this.$store.watch(
-      (state) => state.user.loggedIn,
-      () => { if (!this.$store.state.user.loggedIn) clearInterval(this.polling) }
+      (state) => state.auth.user.loggedIn,
+      () => { if (!this.$store.state.auth.user.loggedIn) clearInterval(this.polling) }
     )
   },
   beforeDestroy () {

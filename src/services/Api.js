@@ -4,7 +4,7 @@ import store from '../store'
 const instance = axios.create()
 
 instance.interceptors.request.use(config => {
-  const token = store.state.user.token
+  const token = store.state.auth.user.token
   if (token) {
     const headers = {
       Authorization: `Bearer ${token}`

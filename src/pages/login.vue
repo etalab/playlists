@@ -20,18 +20,18 @@ export default {
     if (!this.token) {
       console.debug('No oauth token found ¯\\_(ツ)_/¯')
 
-      if (!this.$store.state.user.loggedIn) {
+      if (!this.$store.state.auth.user.loggedIn) {
         window.location = this.tokenURL
       } else {
-        console.log('Logged in', this.$store.state.user)
+        console.log('Logged in', this.$store.state.auth.user)
         this.$router.push('/')
       }
     } else {
-      this.$store.dispatch('login', this.token)
+      this.$store.dispatch('auth/login', this.token)
         .then(() => {
           $api.get('me')
             .then((response) => {
-              this.$store.dispatch('fillUserData', response.data).then(() => {
+              this.$store.dispatch('auth/fillUserData', response.data).then(() => {
                 this.$router.push('/')
               })
             })
