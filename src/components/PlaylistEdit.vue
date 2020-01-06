@@ -70,7 +70,7 @@
 
       <b-form-group
         id="fieldset-1"
-        description="Indiquez un slug, un identifiant ou une recherche"
+        description="Indiquez une url, slug, un identifiant ou une requête de recherche"
         label-for="input-1"
       >
         <b-form-input
@@ -234,8 +234,16 @@ export default {
             .finally(() => { this.search_loading = false })
         })
     },
+    getUrl (url) {
+      this.datasets_search = [url]
+      //      this.search_loading = true
+    },
     debouncheGetSearch: debounce(function (e) {
-      this.getSearch(e)
+      if (e.includes('https://')) {
+        this.getUrl(e)
+      } else {
+        this.getSearch(e)
+      }
     }, 500),
     updateMeta (field, content) {
       const payload = {}
