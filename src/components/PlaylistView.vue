@@ -35,9 +35,11 @@
           class="mr-auto"
           cols="auto"
         >
-          <b-button :href="resource.url">
-            télécharger la playlist
-          </b-button>
+          <button-share
+            :text="'🎧 📊 ' + title"
+            :target="'https://playlists.etalab.studio'+url"
+            via="datagouvfr"
+          />
           <span class="text-muted ml-2">dernière modification : {{ resource.last_modified | moment("DD/MM/YYYY hh:mm") }}</span>
         </b-col>
         <b-col
@@ -58,13 +60,16 @@
 
 <script>
 import DatasetCard from '~/components/DatasetCard.vue'
+import ButtonShare from '~/components/ButtonShare.vue'
+
 import Api from '~/services/Api'
 
 const $api = new Api()
 
 export default {
   components: {
-    DatasetCard
+    DatasetCard,
+    ButtonShare
   },
   props: {
     editable: Boolean

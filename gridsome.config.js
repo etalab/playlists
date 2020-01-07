@@ -13,6 +13,13 @@ module.exports = {
         host: 'https://stats.data.gouv.fr/',
         siteId: 97
       }
+    },
+    {
+      use: 'gridsome-plugin-pug',
+      options: {
+        pug: { /* Options for `pug-plain-loader` */ },
+        pugLoader: { /* Options for `pug-loader` */ }
+      }
     }
   ],
   chainWebpack: config => config.mode('development')
