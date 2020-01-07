@@ -29,7 +29,7 @@
 
       <TheFooter
         parent="https://etalab.studio"
-        bugs="https://github.com/taniki/playlists/issues/new"
+        bugs="https://github.com/etalab/playlists/issues/new"
       />
     </div>
   </div>
