@@ -31,6 +31,9 @@
       <div class="mb-2">
         Les jeux de données
       </div>
+      <div class="mb-3 text-muted small">
+        Double-cliquez sur un jeu de donnée pour le retirer de la playlist
+      </div>
 
       <draggable
         tag="b-row"
@@ -47,7 +50,7 @@
           <DatasetCard
             :url="d"
             inactive
-            @click.native="remove(d)"
+            @dblclick.native="remove(d)"
           />
 
           <div class="text-center text-muted small">
@@ -88,6 +91,13 @@
         <b-spinner />
       </div>
 
+      <div
+        class="my-3 text-muted small"
+        v-if="datasets_search.length > 0"
+      >
+        Double-cliquez sur un jeu de donnée pour l'ajouter de la playlist
+      </div>
+
       <b-row>
         <b-col
           v-for="d in datasets_search"
@@ -100,7 +110,7 @@
             :url="d"
             inactive
             :class="{inactive: datasets.includes(d)}"
-            @click.native="add(d)"
+            @dblclick.native="add(d)"
           />
 
           <div class="text-center text-muted small">
