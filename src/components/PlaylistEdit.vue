@@ -134,7 +134,7 @@
             télécharger la playlist
           </b-button>
           <span class="text-muted ml-2">
-            dernière modification : {{ resource.last_modified }}
+            dernière modification : {{ resource.last_modified | moment("DD/MM/YYYY hh:mm") }}
           </span>
         </b-col>
         <b-col cols="auto">

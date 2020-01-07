@@ -12,6 +12,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import NProgress from 'vue-nprogress'
 
+import VueMoment from 'vue-moment'
+
 import store from './store'
 
 import DefaultLayout from '~/layouts/Default.vue'
@@ -25,6 +27,7 @@ export default function (Vue, { router, head, isClient, appOptions }) {
   Vue.use(VueAxios, axios)
   Vue.use(BootstrapVue)
   Vue.use(NProgress)
+  Vue.use(VueMoment)
 
   Vue.use(Vuex)
 

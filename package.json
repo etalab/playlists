@@ -16,10 +16,12 @@
     "debounce": "^1.2.0",
     "gridsome": "^0.7.7",
     "gridsome-plugin-matomo": "git+https://github.com/taniki/gridsome-plugin-matomo.git",
+    "moment": "^2.24.0",
     "qs": "^6.9.0",
     "shortid": "^2.2.15",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
+    "vue-moment": "^4.1.0",
     "vue-nprogress": "^0.1.5",
     "vuedraggable": "^2.23.2",
     "vuex": "^3.1.1"
