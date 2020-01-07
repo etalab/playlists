@@ -88,7 +88,7 @@ export default {
       return this.user === this.currentUser
     },
     currentUser () {
-      return this.$store.state.user.data.id
+      return this.$store.state.auth.user.data.id
     },
     url () {
       return `/playlist/${this.dataset}/${this.id}`
