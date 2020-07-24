@@ -15,7 +15,7 @@
         {{ user.data.first_name }}
       </template>
       <b-dropdown-item :href="user.data.page">
-        Profile
+        Profil
       </b-dropdown-item>
       <b-dropdown-item @click="logout">
         Se déconnecter
