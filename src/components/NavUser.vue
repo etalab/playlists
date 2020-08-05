@@ -1,7 +1,7 @@
 <template>
   <b-navbar-nav class="ml-auto">
     <b-navbar-nav v-if="user && !user.loggedIn">
-      <b-nav-item href="/login">
+      <b-nav-item @click="submitLogin">
         Se connecter
       </b-nav-item>
     </b-navbar-nav>
@@ -25,6 +25,10 @@
 </template>
 
 <script>
+import Auth from '~/services/Auth'
+
+const $auth = new Auth()
+
 export default {
   computed: {
     user () {
@@ -32,9 +36,13 @@ export default {
     }
   },
   methods: {
-    logout () {
+    submitLogin (evt) {
+      evt.preventDefault()
+      window.location = $auth.authUrl()
+    },
+    async logout () {
+      await $auth.proceedLogout(this.$store.state.auth.user.token)
       this.$store.dispatch('auth/logout')
-      this.$router.push('/')
     }
   },
   mounted () {
