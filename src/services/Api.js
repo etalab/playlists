@@ -30,7 +30,7 @@ function defaultErrorCallback (res) {
 
 export default class Api {
   constructor () {
-    this.API_BASE_URL = 'https://www.data.gouv.fr'
+    this.API_BASE_URL = process.env.GRIDSOME_BASE_URL
     this.UPLOADER_BASE_URL = 'http://localhost:3000/api'
   }
 
